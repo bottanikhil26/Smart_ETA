@@ -9,6 +9,7 @@ from pymongo.server_api import ServerApi
 import pandas as pd
 import numpy as np
 from typing import List
+from sklearn.model_selection import train_test_split
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -50,11 +51,34 @@ class DataIngestion:
         This method exports the DataFrame to the feature store.
         """
         try:
-            feature_store_file_path = self.data_ingestion_config.data_ingestion_feature_store_dir
+            feature_store_file_path = self.data_ingestion_config.data_ingestion_feature_store_file_path
             dir_path = os.path.dirname(feature_store_file_path)
             os.makedirs(dir_path, exist_ok=True)
             dataframe.to_csv(feature_store_file_path, index=False,header=True)
             return dataframe
+        except Exception as e:
+            raise SmartetaException(e, sys) from e
+        
+    def split_data_as_train_test(self, dataframe: pd.DataFrame) -> List[pd.DataFrame]:
+        """
+        This method splits the DataFrame into training and testing sets.
+        """
+        try:
+            train_set, test_set = train_test_split(dataframe, test_size=self.data_ingestion_config.data_ingestion_train_test_split_ratio,random_state=42)
+            dir_path = os.path.dirname(self.data_ingestion_config.data_ingestion_train_file_path)
+            
+            os.makedirs(dir_path, exist_ok=True)
+            
+            logging.info(f"Exporting train and test file path.")
+            
+            train_set.to_csv(
+                self.data_ingestion_config.data_ingestion_train_file_path, index=False, header=True
+            )
+
+            test_set.to_csv(
+                self.data_ingestion_config.data_ingestion_test_file_path, index=False, header=True
+            )
+            logging.info(f"Exported train and test file path.")
         except Exception as e:
             raise SmartetaException(e, sys) from e
 
@@ -66,7 +90,9 @@ class DataIngestion:
         try:
             dataframe = self.export_collection_as_dataframe()
             dataframe = self.export_data_to_feature_store(dataframe=dataframe)
-            dataingestionartifact = DataIngestionArtifact(file_path =self.data_ingestion_config.data_ingestion_feature_store_dir)
+            self.split_data_as_train_test(dataframe)
+            dataingestionartifact = DataIngestionArtifact(train_file_path =self.data_ingestion_config.data_ingestion_train_file_path,
+                                                          test_file_path =self.data_ingestion_config.data_ingestion_test_file_path)
             return dataingestionartifact
         except Exception as e:
             raise SmartetaException(e, sys) from e

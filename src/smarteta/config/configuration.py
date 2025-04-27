@@ -13,6 +13,7 @@ class TrainingPipelineConfig:
         self.time_stamp = time_stamp
         self.pipeline_name = constants.PIPELINE_NAME
         self.artifact_name = constants.ARTIFACT_DIR
+        self.model_dir=os.path.join("final_model")
         self.artifact_dir = os.path.join( self.artifact_name,self.time_stamp)
 
 class DataIngestionConfig:
@@ -24,4 +25,7 @@ class DataIngestionConfig:
         self.data_ingestion_dir :str = os.path.join(pipeline_config.artifact_dir, constants.DATA_INGESTION_DIR_NAME)
         self.data_ingestion_collection_name : str = constants.DATA_INGESTION_COLLECTION_NAME
         self.data_ingestion_database_name : str = constants.DATA_INGESTION_DATABASE_NAME
-        self.data_ingestion_feature_store_dir :str  = os.path.join(self.data_ingestion_dir, constants.DATA_INGESTION_FEATURE_STORE_DIR,constants.FILE_NAME)
+        self.data_ingestion_feature_store_file_path :str  = os.path.join(self.data_ingestion_dir, constants.DATA_INGESTION_FEATURE_STORE_DIR,constants.FILE_NAME)
+        self.data_ingestion_train_file_path : str = os.path.join(self.data_ingestion_dir, constants.DATA_INGESTION_INGESTED_DIR, constants.TRAIN_FILE_NAME)
+        self.data_ingestion_test_file_path : str = os.path.join(self.data_ingestion_dir, constants.DATA_INGESTION_INGESTED_DIR, constants.TEST_FILE_NAME)
+        self.data_ingestion_train_test_split_ratio : float = constants.DATA_INGESTION_TRAIN_TEST_SPLIT_RATIO
