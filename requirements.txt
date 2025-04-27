@@ -9,5 +9,7 @@ lightgbm
 python-dotenv
 pymongo
 requests
-certifier
+certifi
+pymongo[srv]==3.12.0
+kagglehub[pandas-datasets]
 #-e .

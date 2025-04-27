@@ -1,5 +1,4 @@
 import sys
-from src.smarteta.logging import logger
 class SmartetaException(Exception):
     """Base class for all exceptions raised by Smarteta."""
     def __init__(self,error_message,error_detail:sys):
@@ -18,9 +17,5 @@ class SmartetaException(Exception):
         """
         Returns the string representation of the exception.
         """
-        return f"Error occurred in python script name [{0}] at line number [{1}] error message [{2}]".format(
-            self.file_name,
-            self.line_number,
-            self.error_message
-        )
+        return  f"Error occurred in python script name [{self.file_name}] at line number [{self.line_number}] error message [{self.error_message}]"
     
