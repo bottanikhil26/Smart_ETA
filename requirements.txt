@@ -8,3 +8,6 @@ xgboost
 lightgbm
 python-dotenv
 pymongo
+requests
+certifier
+#-e .
