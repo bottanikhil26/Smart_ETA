@@ -11,5 +11,8 @@ pymongo
 requests
 certifi
 pymongo[srv]==3.12.0
-sckit-learn
+scikit-learn
+dill
+pyaml==20.4.0
+
 #-e .

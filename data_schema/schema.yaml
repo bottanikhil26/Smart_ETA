@@ -1,0 +1,132 @@
+columns:
+  ID:
+    dtype: str
+    tests:
+      - not_null
+      - unique
+
+  Delivery_person_ID:
+    dtype: str
+    tests:
+      - not_null
+
+  Delivery_person_Age:
+    dtype: int
+    tests:
+      - not_null
+      - positive
+
+  Delivery_person_Ratings:
+    dtype: float
+    tests:
+      - not_null
+      - min_value: 0
+      - max_value: 5
+
+  Restaurant_latitude:
+    dtype: float
+    tests:
+      - not_null
+      - range:
+          min: -90
+          max: 90
+
+  Restaurant_longitude:
+    dtype: float
+    tests:
+      - not_null
+      - range:
+          min: -180
+          max: 180
+
+  Delivery_location_latitude:
+    dtype: float
+    tests:
+      - not_null
+      - range:
+          min: -90
+          max: 90
+
+  Delivery_location_longitude:
+    dtype: float
+    tests:
+      - not_null
+      - range:
+          min: -180
+          max: 180
+
+  Order_Date:
+    dtype: str
+    tests:
+      - not_null
+      - date_format: "%Y-%m-%d"
+
+  Time_Orderd:
+    dtype: str
+    tests:
+      - not_null
+      - time_format: "%H:%M:%S"
+
+  Time_Order_picked:
+    dtype: str
+    tests:
+      - not_null
+      - time_format: "%H:%M:%S"
+
+  Weather_conditions:
+    dtype: str
+    tests:
+      - not_null
+      - one_of: ["Sunny", "Rainy", "Cloudy", "Stormy"]
+
+  Road_traffic_density:
+    dtype: str
+    tests:
+      - not_null
+      - one_of: ["Low", "Medium", "High"]
+  
+  Vehicle_condition:
+    dtype: int
+    tests:
+      - not_null
+      - positive
+      - max_value: 10
+  
+  Type_of_order:
+    dtype: str
+    tests:
+      - not_null
+       
+  
+  Type_of_vehicle:
+    dtype: str
+    tests:
+      - not_null
+      - one_of: ["Bike", "Car", "Van"]
+  
+
+
+  multiple_deliveries:
+    dtype: int
+    tests:
+      - non_negative
+
+  Festival:
+    dtype: str
+    tests:
+      - not_null
+      - one_of: ["Yes", "No"]
+
+  City:
+    dtype: str
+    tests:
+      - not_null
+      - one_of: ["City A", "City B", "City C"]
+
+  Time_taken(min):
+    dtype: int
+    tests:
+      - not_null
+      - positive
+
+  

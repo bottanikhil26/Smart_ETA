@@ -29,3 +29,23 @@ class DataIngestionConfig:
         self.data_ingestion_train_file_path : str = os.path.join(self.data_ingestion_dir, constants.DATA_INGESTION_INGESTED_DIR, constants.TRAIN_FILE_NAME)
         self.data_ingestion_test_file_path : str = os.path.join(self.data_ingestion_dir, constants.DATA_INGESTION_INGESTED_DIR, constants.TEST_FILE_NAME)
         self.data_ingestion_train_test_split_ratio : float = constants.DATA_INGESTION_TRAIN_TEST_SPLIT_RATIO
+
+
+class DataValidationConfig:
+    """
+    This class is used to define the configuration for data validation.
+    """
+
+    def __init__(self, pipeline_config: TrainingPipelineConfig):
+        self.data_validation_dir :str = os.path.join(pipeline_config.artifact_dir, constants.DATA_VALIDATION_DIR_NAME)
+        self.data_validation_valid_dir : str = os.path.join(self.data_validation_dir, constants.DATA_VALIDATION_VALID_DIR)
+        self.data_validation_invalid_dir : str = os.path.join(self.data_validation_dir, constants.DATA_VALIDATION_INVALID_DIR)
+        self.valid_train_file_path : str = os.path.join(self.data_validation_valid_dir, constants.TRAIN_FILE_NAME)
+        self.valid_test_file_path : str = os.path.join(self.data_validation_valid_dir, constants.TEST_FILE_NAME)
+        self.invalid_train_file_path : str = os.path.join(self.data_validation_invalid_dir, constants.TRAIN_FILE_NAME)
+        self.invalid_test_file_path : str = os.path.join(self.data_validation_invalid_dir, constants.TEST_FILE_NAME)
+        self.drift_report_file_path: str = os.path.join(
+            self.data_validation_dir,
+            constants.DATA_VALIDATION_DRIFT_REPORT_DIR,
+            constants.DATA_VALIDATION_DRIFT_REPORT_FILE_NAME,
+        )
