@@ -41,7 +41,9 @@ class DataIngestion:
             if "_id" in df.columns:
                 df.drop(columns=['_id'], axis=1, inplace=True)
             
-            df.replace({'na':np.nan}, inplace=True)
+            df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
+            for col in df.select_dtypes(include=["object"]).columns:
+                df[col] = df[col].replace(["NaN", "nan", "null", "NULL", "", "NA", "N/A", "--"], np.nan)
             return df
         except Exception as e:
             raise SmartetaException(e, sys) from e
